@@ -11,6 +11,8 @@ class Music {
     @Id
     @Column(updatable = false)
     var idm: Long? = null
+    @Column(name = "banda_id")
+    var musicoId: Long? =null
     var nombre: String? = null
     var apellido: String? = null
     var edad: Long? = null

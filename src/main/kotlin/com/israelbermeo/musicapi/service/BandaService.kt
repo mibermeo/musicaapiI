@@ -3,6 +3,7 @@ package com.israelbermeo.musicapi.service
 import com.israelbermeo.musicapi.model.Banda
 import com.israelbermeo.musicapi.model.Music
 import com.israelbermeo.musicapi.repository.BandaRepository
+import com.israelbermeo.musicapi.repository.ManagerRepository
 import com.israelbermeo.musicapi.repository.MusicRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -17,7 +18,7 @@ class BandaService {
    lateinit var  bandaRepository: BandaRepository
 
    @Autowired
-   lateinit var musicRepository: MusicRepository
+   lateinit var managerRepository: ManagerRepository
 
    fun list ():List<Banda>{
         return bandaRepository.findAll()
@@ -34,8 +35,8 @@ class BandaService {
             banda.genero?.takeIf { it.trim().isNotEmpty() }
                 ?: throw Exception ("El campo no puede estar vacio")
 
-            musicRepository.findByIdm(banda.idm)
-                ?: throw Exception ("Id del musico no encontrada")
+            managerRepository.findById(banda.id)
+                ?: throw Exception ("Id del manager no encontrada")
         }
         catch (ex:Exception){
             throw ResponseStatusException(

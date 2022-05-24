@@ -1,6 +1,7 @@
 package com.israelbermeo.musicapi.service
 
 import com.israelbermeo.musicapi.model.Music
+import com.israelbermeo.musicapi.repository.BandaRepository
 import com.israelbermeo.musicapi.repository.MusicRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -12,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException
 class MusicService {
     @Autowired
     lateinit var musicRepository: MusicRepository
+
+    lateinit var bandaRepository: BandaRepository
 
     fun list ():List<Music>{
         return musicRepository.findAll()
@@ -31,6 +34,9 @@ class MusicService {
                 ?: throw Exception ("Debe ser mayor de 18 para registrarce")
             music.descripcion?.takeIf { it.trim().isNotEmpty() }
                 ?: throw Exception ("El campo no debe estar vacio")
+
+            bandaRepository.findById(music.idm)
+                ?: throw Exception ("Id de la banda no encontrada")
         }
         catch (ex:Exception){
             throw ResponseStatusException(
@@ -96,11 +102,11 @@ class MusicService {
     }
     fun delete (idm:Long): Boolean{
        try {
-           val response = musicRepository.findByIdm(idm)
+            musicRepository.findByIdm(idm)
                ?:throw Exception("El id ${idm} no existe")
-           response.apply {
+
                musicRepository.deleteById(idm)
-           }
+
            return true
        }
        catch (ex:Exception){
