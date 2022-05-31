@@ -1,5 +1,7 @@
 package com.israelbermeo.musicapi.service
 
+import DTO.NewName
+import com.israelbermeo.musicapi.model.Banda
 import com.israelbermeo.musicapi.model.Music
 import com.israelbermeo.musicapi.repository.BandaRepository
 import com.israelbermeo.musicapi.repository.MusicRepository
@@ -24,6 +26,10 @@ class MusicService {
         return musicRepository.findByIdm(idm)
     }
 
+    fun getListaDes (descripcion:String?):List<Music>?{
+        return musicRepository.getListaDes(descripcion)
+    }
+
     fun save ( music: Music):Music {
         try {
             music.nombre?.takeIf { it.trim().isNotEmpty() }
@@ -35,7 +41,7 @@ class MusicService {
             music.descripcion?.takeIf { it.trim().isNotEmpty() }
                 ?: throw Exception ("El campo no debe estar vacio")
 
-            bandaRepository.findById(music.idm)
+            bandaRepository.findById(music.bandaId)
                 ?: throw Exception ("Id de la banda no encontrada")
         }
         catch (ex:Exception){
@@ -114,5 +120,11 @@ class MusicService {
            HttpStatus.NOT_FOUND, ex.message, ex
            )
        }
+
+
+    }
+    fun updateName (newName: NewName): Boolean??{
+        musicRepository.setNames(newName.nombre, newName.nuevoNombre)
+        return true
     }
 }

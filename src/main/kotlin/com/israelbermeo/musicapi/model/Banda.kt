@@ -10,7 +10,7 @@ class Banda {
     @Id
     @Column(updatable = false)
     var id: Long? = null
-    @Column(name = "manager_id")
+   @Column(name = "manager_id")
     var managerId: Long? = null
     var nombre_band: String? = null
     var genero: String? = null

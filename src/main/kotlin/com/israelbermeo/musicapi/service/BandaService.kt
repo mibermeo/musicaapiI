@@ -1,10 +1,8 @@
 package com.israelbermeo.musicapi.service
 
 import com.israelbermeo.musicapi.model.Banda
-import com.israelbermeo.musicapi.model.Music
 import com.israelbermeo.musicapi.repository.BandaRepository
 import com.israelbermeo.musicapi.repository.ManagerRepository
-import com.israelbermeo.musicapi.repository.MusicRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -28,6 +26,10 @@ class BandaService {
         return bandaRepository.findById(id)
     }
 
+    fun getListaPorGenero (genero:String?):List<Banda>?{
+        return bandaRepository.getListaPorGenero(genero)
+    }
+
     fun save ( banda: Banda):Banda {
         try {
             banda.nombre_band?.takeIf { it.trim().isNotEmpty() }
@@ -35,7 +37,7 @@ class BandaService {
             banda.genero?.takeIf { it.trim().isNotEmpty() }
                 ?: throw Exception ("El campo no puede estar vacio")
 
-            managerRepository.findById(banda.id)
+           managerRepository.findById(banda.managerId)
                 ?: throw Exception ("Id del manager no encontrada")
         }
         catch (ex:Exception){

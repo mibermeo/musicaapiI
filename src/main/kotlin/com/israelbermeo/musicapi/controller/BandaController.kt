@@ -18,6 +18,11 @@ lateinit var bandaService: BandaService
         return bandaService.getByid(id)
     }
 
+    @GetMapping("/genero/{genero}")
+    fun listGender (@PathVariable("genero") genero: String):List <Banda>?{
+        return bandaService.getListaPorGenero(genero)
+    }
+
     @GetMapping
     fun list():List<Banda>{
         return bandaService.list()

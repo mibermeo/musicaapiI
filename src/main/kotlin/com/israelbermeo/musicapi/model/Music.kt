@@ -12,7 +12,7 @@ class Music {
     @Column(updatable = false)
     var idm: Long? = null
     @Column(name = "band_id")
-    var musicoId: Long? =null
+    var bandaId: Long? =null
     var nombre: String? = null
     var apellido: String? = null
     var edad: Long? = null

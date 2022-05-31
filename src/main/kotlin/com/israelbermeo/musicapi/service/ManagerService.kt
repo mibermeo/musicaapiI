@@ -1,5 +1,6 @@
 package com.israelbermeo.musicapi.service
 
+import com.israelbermeo.musicapi.model.Banda
 import com.israelbermeo.musicapi.model.Manager
 import com.israelbermeo.musicapi.repository.ManagerRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,6 +16,14 @@ class ManagerService {
     fun list ():List<Manager>{
         return managerRepository.findAll()
     }
+    fun getByid (id:Long?): Manager? {
+        return managerRepository.findById(id)
+    }
+
+    fun getListaEdad (edad:Long?):List<Manager>?{
+        return managerRepository.getListaEdad(edad)
+    }
+
 
     fun save (manager: Manager): Manager {
         return managerRepository.save(manager)

@@ -30,13 +30,3 @@ CREATE TABLE IF NOT EXISTS musico(
     FOREIGN KEY (band_id) REFERENCES band(id)
     );
 
-CREATE TABLE IF NOT EXISTS manager(
-    id SERIAL,
-    nombre VARCHAR (100) NOT NULL,
-    apellido VARCHAR (100) NOT NULL,
-    edad INT,
-    correo VARCHAR (100) NOT NULL,
-    contacto VARCHAR (100) NOT NUll,
-    PRIMARY KEY (id)
-
-    );
