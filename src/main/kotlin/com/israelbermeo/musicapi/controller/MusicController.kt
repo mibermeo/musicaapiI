@@ -37,7 +37,7 @@ class MusicController {
 
 
     @PostMapping("/changeName")
-    fun updateName (@RequestBody newName: NewName): Boolean?{
+    fun updateName (@RequestBody newName: NewName): String?{
         return musicService.updateName(newName)
     }
     @PostMapping

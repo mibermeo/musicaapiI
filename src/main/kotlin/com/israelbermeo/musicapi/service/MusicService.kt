@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import javax.transaction.Transactional
 
 
 @Service
 class MusicService {
     @Autowired
     lateinit var musicRepository: MusicRepository
-
+    @Autowired
     lateinit var bandaRepository: BandaRepository
 
     fun list ():List<Music>{
@@ -123,8 +124,10 @@ class MusicService {
 
 
     }
-    fun updateName (newName: NewName): Boolean??{
-        musicRepository.setNames(newName.nombre, newName.nuevoNombre)
-        return true
+
+    @Transactional
+    fun updateName (newName: NewName): String??{
+       val  rowsUpdate= musicRepository.setNames(newName.nombre, newName.nuevoNombre)
+        return "${rowsUpdate} rows updated"
     }
 }

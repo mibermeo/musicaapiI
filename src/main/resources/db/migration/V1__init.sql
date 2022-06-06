@@ -30,3 +30,10 @@ CREATE TABLE IF NOT EXISTS musico(
     FOREIGN KEY (band_id) REFERENCES band(id)
     );
 
+    CREATE TABLE IF NOT EXISTS usuario(
+    id SERIAL,
+    username VARCHAR (100) NOT NULL,
+    password VARCHAR (10) NOT NULL,
+    PRIMARY KEY (id)
+    );
+

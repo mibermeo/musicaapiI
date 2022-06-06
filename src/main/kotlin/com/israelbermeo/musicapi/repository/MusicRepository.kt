@@ -14,8 +14,8 @@ interface MusicRepository: JpaRepository<Music, Long> {
     @Query(nativeQuery = true)
     fun getListaDes(@Param("descripcion") descripcion:String?) : List<Music>?
 
-    @Transactional
+
     @Modifying
     @Query(nativeQuery=true)
-    fun setNames (@Param("nombre") nombre :String?, @Param("nuevoNombre")  nuevoNombre: String?) : List <Music>?
+    fun setNames (@Param("nombre") nombre :String?, @Param("nuevoNombre")  nuevoNombre: String?) : Integer?
 }
