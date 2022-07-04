@@ -16,7 +16,7 @@ import java.io.File
 
 @SpringBootTest
 class ManagerServiceTests {
-    @InjectMocks
+/*    @InjectMocks
     lateinit var managerService: ManagerService
 
     @Mock
@@ -41,10 +41,10 @@ class ManagerServiceTests {
             Mockito.`when`(managerRepository.save(Mockito.any(Manager::class.java))).thenReturn(productMock)
             managerService.save(productMock)
         }
-    }
+    }*/
 
 
-    /*@Autowired
+    @Autowired
     lateinit var managerService: ManagerService
     @Test
     fun multiplicacionWhenLessThanTen (){
@@ -65,9 +65,21 @@ class ManagerServiceTests {
     }
 
     @Test
-    fun validarDecenaSuperior(){
-        val response=managerService.findDecenaSuperior(20)
-        Assertions.assertEquals(0,response)
-    }*/
+    fun validarDecenaSuperiorCuandoNoEsCero(){
+        val response = managerService.findDecenaSuperior(25)
+        Assertions.assertEquals(5, response)
+    }
+
+    @Test
+    fun validarDecenaSuperiorCuandoEsCero(){
+        val response = managerService.findDecenaSuperior(10)
+        Assertions.assertEquals(0, response)
+    }
+
+    @Test
+    fun validarCedulaIsValida(){
+        val response = managerService.validarCedula("0107466153")
+        Assertions.assertEquals(true, response)
+    }
 }
 
