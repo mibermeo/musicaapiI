@@ -69,8 +69,15 @@ class ManagerService {
         }
         return sum
     }
-    fun findDecenaSuperior (sum: Long): Long{
-        return 1
+    fun findDecenaSuperior (sum: Int): Int{
+
+        val division:Int = sum-10
+        val decenaSuperior: Int = (division+1) *10
+        var response: Int=decenaSuperior-sum
+        if(decenaSuperior == 10)
+            response=0
+
+        return response
     }
-    }
+}
 

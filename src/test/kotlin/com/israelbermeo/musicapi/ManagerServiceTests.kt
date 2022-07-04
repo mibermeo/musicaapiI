@@ -1,15 +1,50 @@
 package com.israelbermeo.musicapi
 
+import com.google.gson.Gson
+import com.israelbermeo.musicapi.model.Manager
+import com.israelbermeo.musicapi.repository.ManagerRepository
 import com.israelbermeo.musicapi.service.ManagerService
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import java.io.File
 
 
 @SpringBootTest
 class ManagerServiceTests {
-    @Autowired
+    @InjectMocks
+    lateinit var managerService: ManagerService
+
+    @Mock
+    lateinit var managerRepository: ManagerRepository
+
+    val jsonString = File("./src/test/resources/gerent.json").readText(Charsets.UTF_8)
+    val productMock = Gson().fromJson(jsonString, Manager::class.java)
+
+
+    @Test
+    fun saveProduct() {
+
+        Mockito.`when`(managerRepository.save(Mockito.any(Manager::class.java))).thenReturn(productMock)
+        val response = managerService.save(productMock)
+        Assertions.assertEquals(response?.id, productMock.id)
+    }
+
+    @Test
+    fun saveProductFailed() {
+        Assertions.assertThrows(Exception::class.java) {
+            productMock.apply { nombre = " " }
+            Mockito.`when`(managerRepository.save(Mockito.any(Manager::class.java))).thenReturn(productMock)
+            managerService.save(productMock)
+        }
+    }
+
+
+    /*@Autowired
     lateinit var managerService: ManagerService
     @Test
     fun multiplicacionWhenLessThanTen (){
@@ -28,4 +63,11 @@ class ManagerServiceTests {
         val response=managerService.SumaValores("0301707030")
         Assertions.assertEquals(20,response)
     }
+
+    @Test
+    fun validarDecenaSuperior(){
+        val response=managerService.findDecenaSuperior(20)
+        Assertions.assertEquals(0,response)
+    }*/
 }
+
