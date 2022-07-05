@@ -78,8 +78,14 @@ class ManagerServiceTests {
 
     @Test
     fun validarCedulaIsValida(){
-        val response = managerService.validarCedula("0107466153")
+        val response = managerService.validarCedula("0105785505")
         Assertions.assertEquals(true, response)
+    }
+
+    @Test
+    fun validarCedulaIsInvalid(){
+        val response = managerService.validarCedula("0105785555")
+        Assertions.assertEquals(false, response)
     }
 }
 

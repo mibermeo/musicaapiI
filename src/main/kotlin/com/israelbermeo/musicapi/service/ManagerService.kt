@@ -76,7 +76,7 @@ class ManagerService {
 
     fun findDecenaSuperior(sum: Int): Int {
 
-        val division: Int = sum - 10
+        val division: Int = sum / 10
         val decenaSuperior: Int = (division + 1) * 10
         var response: Int = decenaSuperior - sum
         if (response == 10)
